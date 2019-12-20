@@ -25,7 +25,7 @@ void setMatrix(UCHAR max, int (*matrix)[i])
 }
 
 //MARK: - Вычисление суммы элементов главной диагонали
-void sumMainDiagonal(UCHAR max, int (*matrix)[i], int *sum)
+void trace(UCHAR max, int (*matrix)[i], int *sum)
 {
     for (UCHAR j = 0; j < max; j++)
         *sum += matrix[j][j];
@@ -52,10 +52,10 @@ void printMatrix(UCHAR max, int (*matrix)[i])
 void compMatrix(UCHAR max, int (*fmatrix)[i], int (*smatrix)[i])
 {
     int fsum = 0, ssum = 0;
-    sumMainDiagonal(max, fmatrix, &fsum); // След первой матрицы
-    sumMainDiagonal(max, smatrix, &ssum); // След второй матрицы
+    trace(max, fmatrix, &fsum); // След первой матрицы
+    trace(max, smatrix, &ssum); // След второй матрицы
     printf_s("Квадрат матрицы с наименьшей диагональю: \n");
-    (fsum < ssum) ? (printMatrix(max, fmatrix)) : (printMatrix(max, smatrix));
+    fsum < ssum ? printMatrix(max, fmatrix) : printMatrix(max, smatrix);
 }
 
 //MARK: - main()
