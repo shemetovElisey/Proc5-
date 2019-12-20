@@ -3,7 +3,6 @@
  в) Даны две квадратные матрицы n-го порядка каждая (n - не превышает 20). Напечатать квадрат той из них, в которой наименьший след (сумма элементов главной диагонали).
 */
 
-
 #define printf_s printf
 #define scanf_s scanf
 #define UCHAR int
@@ -26,7 +25,7 @@ void setMatrix(UCHAR max, int (*matrix)[i])
 }
 
 //MARK: - Вычисление суммы элементов главной диагонали
-void matrixSum(UCHAR max, int (*matrix)[i], int *sum)
+void sumMainDiagonal(UCHAR max, int (*matrix)[i], int *sum)
 {
     for (UCHAR j = 0; j < max; j++)
         *sum += matrix[j][j];
@@ -50,17 +49,13 @@ void printMatrix(UCHAR max, int (*matrix)[i])
 }
 
 //MARK: - Сравнение матриц
-void matrixComp(UCHAR max, int (*fmatrix)[i], int (*smatrix)[i])
+void compMatrix(UCHAR max, int (*fmatrix)[i], int (*smatrix)[i])
 {
     int fsum = 0, ssum = 0;
-    matrixSum(max, fmatrix, &fsum); //Считаем сумму элементов главной диагонали первой матрицы
-    matrixSum(max, smatrix, &ssum); //Считаем сумму элементов главной диагонали второй матрицы
+    sumMainDiagonal(max, fmatrix, &fsum); // След первой матрицы
+    sumMainDiagonal(max, smatrix, &ssum); // След второй матрицы
     printf_s("Квадрат матрицы с наименьшей диагональю: \n");
-    
-    if (fsum < ssum)
-        printMatrix(max, fmatrix);  //Печатаем квадрат первой матрицы
-    else
-        printMatrix(max, smatrix);  //Печатаем квадрат второй матрицы
+    (fsum < ssum) ? (printMatrix(max, fmatrix)) : (printMatrix(max, smatrix));
 }
 
 //MARK: - main()
@@ -71,9 +66,9 @@ int main()
     setlocale(LC_ALL, "Rus");
     printf_s("Введите размерность квадратной матрицы: ");
     scanf_s("%d", &k);
-    setMatrix(k, A);                //Заполняем первую матрицу
-    setMatrix(k, B);                //Заполняем вторую матрицу
-    matrixComp(k, A, B);            //Сравниваем главные диагонали двух матриц
+    setMatrix(k, A);                // Первая матрица
+    setMatrix(k, B);                // Вторая матрица
+    compMatrix(k, A, B);            // Сравниваем главные диагонали двух матриц
     return 0;
 }
 
